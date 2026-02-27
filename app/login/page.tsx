@@ -2,22 +2,62 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Zap, ArrowRight, Github, Loader2 } from "lucide-react";
+import axios from "axios";
 
 export default function LoginPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [formError, setFormError] = useState("");
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsLoading(true);
-    // Simulate network request
-    setTimeout(() => {
+    setFormError("");
+
+    try {
+      const response = await axios.post("http://127.0.0.1:8000/login", {
+        login: email,
+        contrasena: password,
+      });
+
+      console.log("Response:", response.data);
+
+      if (response.data?.IsSuccess) {
+        // Save user data to localStorage
+        if (response.data.data) {
+          localStorage.setItem("userData", JSON.stringify(response.data.data));
+        }
+
+        // Go to dashboard
+        router.push("/dashboard");
+      } else {
+        console.error("Login failed:", response.data?.message);
+      }
+    } catch (error) {
+      console.error("Error during login:", error);
+      if (axios.isAxiosError(error)) {
+        if (error.response?.status === 422) {
+          setFormError(
+            "Faltan campos o el formato es incorrecto. Por favor, verifica tu correo y contraseña.",
+          );
+        } else if (error.response?.status === 401) {
+          setFormError("Credenciales incorrectas.");
+        } else {
+          setFormError(
+            "Ocurrió un error inesperado al comunicarse con el servidor.",
+          );
+        }
+      } else {
+        setFormError("Error de conexión. Inténtalo más tarde.");
+      }
+    } finally {
       setIsLoading(false);
-      router.push("/dashboard");
-    }, 1500);
+    }
   };
 
   return (
@@ -31,10 +71,16 @@ export default function LoginPage() {
         <div className="flex justify-center mb-8 relative">
           <Link href="/" className="flex items-center gap-2 group">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-emerald-500 text-white dark:text-neutral-950 transition-transform group-hover:scale-105">
-              <Zap className="h-6 w-6" />
+              <Image
+                src="/icon.svg"
+                alt="SAI Icon"
+                width={50}
+                height={50}
+                className="object-contain"
+              />
             </div>
             <span className="text-2xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50">
-              SAI
+              copilot
             </span>
           </Link>
         </div>
@@ -48,7 +94,7 @@ export default function LoginPage() {
             <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-50 tracking-tight transition-colors">
               Welcome back
             </h1>
-            <p className="text-sm text-neutral-500 dark:text-neutral-400 mt-2 transition-colors">
+            <p className="text-md text-neutral-500 dark:text-neutral-400 mt-2 transition-colors">
               Log in to your account to continue
             </p>
           </div>
@@ -63,7 +109,7 @@ export default function LoginPage() {
               </label>
               <input
                 id="email"
-                type="email"
+                type="text"
                 placeholder="name@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -93,13 +139,25 @@ export default function LoginPage() {
                 placeholder="••••••••"
                 required
                 className="w-full h-12 bg-white/50 dark:bg-neutral-950/50 border border-neutral-200 dark:border-neutral-800 rounded-xl px-4 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all ring-offset-white dark:ring-offset-neutral-950"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </div>
 
+            {formError && (
+              <div className="p-3 bg-red-500/10 border border-red-500/20 rounded-xl text-red-500 dark:text-red-400 text-sm text-center transition-colors">
+                {formError}
+              </div>
+            )}
+
             <button
               type="submit"
-              disabled={isLoading}
-              className="w-full h-12 bg-emerald-500 hover:bg-emerald-400 text-white dark:text-neutral-950 font-medium rounded-xl mt-6 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-neutral-900 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 group"
+              disabled={isLoading || !email.trim() || !password.trim()}
+              className={`w-full h-12 bg-emerald-500 text-white dark:text-neutral-950 font-medium rounded-xl mt-6 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-neutral-900 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 ${
+                isLoading || !email.trim() || !password.trim()
+                  ? ""
+                  : "hover:bg-emerald-400 group"
+              }`}
             >
               {isLoading ? (
                 <Loader2 className="h-5 w-5 animate-spin text-white dark:text-neutral-950" />
@@ -121,13 +179,6 @@ export default function LoginPage() {
           </div>
 
           <div className="mt-6 flex gap-3">
-            <button
-              type="button"
-              className="flex-1 h-11 bg-neutral-50 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl flex items-center justify-center gap-2 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors"
-            >
-              <Github className="h-4 w-4" />
-              GitHub
-            </button>
             <button
               type="button"
               className="flex-1 h-11 bg-neutral-50 dark:bg-neutral-950 border border-neutral-200 dark:border-neutral-800 rounded-xl flex items-center justify-center gap-2 text-sm font-medium text-neutral-600 dark:text-neutral-300 hover:bg-neutral-100 dark:hover:bg-neutral-800 hover:text-neutral-900 dark:hover:text-neutral-50 transition-colors"
@@ -158,7 +209,7 @@ export default function LoginPage() {
         <p className="text-center text-xs text-neutral-500 dark:text-neutral-500 mt-8 transition-colors">
           Don&apos;t have an account?{" "}
           <Link
-            href="#"
+            href="/login"
             className="text-emerald-600 dark:text-emerald-500 hover:text-emerald-500 dark:hover:text-emerald-400 font-medium transition-colors"
           >
             Request early access
