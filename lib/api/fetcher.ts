@@ -217,3 +217,45 @@ export const fetchCrearEmpleados = async (nombre_completo: string, login: string
     }
 }
 
+
+export const fetchUpdateEmpleados = async (id: number , nombre_completo: string, login: string , contrasena: string , Rol: string) => {
+     try{
+        const response = await axios.post(
+            API_ENDPOINTS.updateEmpleados,
+            {
+                id,
+                nombre_completo,
+                login,
+                contrasena,
+                Rol
+            },
+            {headers: {
+                'accept': 'application/json',
+                    'Content-Type': 'application/json'
+             }}
+        )
+        console.log("Respuesta de fetchCrearEmpleados:", response.data);
+        return response.data;
+    }catch (error){
+        console.error("Error al crear empleado:", error);
+        throw error;
+    }   
+
+}
+
+export const fetchEliminarEmpleados = async (id: number) => {
+    try{
+        const response = await axios.delete(
+            API_ENDPOINTS.eliminarEmpleados,
+            {params: {id}}
+        )
+        console.log("Respuesta de fetchEliminarEmpleados:", response.data);
+        return response.data;
+    }catch (error){
+        console.error("Error al eliminar empleado:", error);
+        throw error;
+    }
+}
+
+
+
