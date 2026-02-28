@@ -1,9 +1,11 @@
-const DashboardPage = () => {
+"use client";
+
+import { TestDash } from "@/components/dashboard/TestDash";
+
+export default function DashboardPage() {
   return (
-    <div className=" dark:text-blue-50 min-h-screen bg-neutral-50 dark:bg-neutral-950 flex flex-col justify-center items-center relative overflow-hidden selection:bg-neutral-200 dark:selection:bg-neutral-800 transition-colors">
-      DashboardPage
+    <div className="space-y-4">
+      <TestDash />
     </div>
   );
-};
-
-export default DashboardPage;
+}
