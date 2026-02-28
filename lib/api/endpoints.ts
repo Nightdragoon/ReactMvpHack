@@ -21,7 +21,7 @@ export const API_ENDPOINTS = {
     deleteProducto: `${API_URL}/DeleteProducto`,
 
     // !Inventario
-    getAllInventario: `${API_URL}/GetAllInventario`,
+    getAllInventario: `${API_URL}/getAllInventario`,
     getInventario: `${API_URL}/productos/{id_producto}/inventario`,
     crearInventario: `${API_URL}/productos/{id_producto}/inventario`,
     updateInventario: `${API_URL}/productos/{id_producto}/inventario`,
@@ -49,3 +49,5 @@ export const API_ENDPOINTS = {
 
 };
 
+    // !Dashboard
+};
