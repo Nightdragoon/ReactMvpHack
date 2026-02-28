@@ -259,3 +259,98 @@ export const fetchEliminarEmpleados = async (id: number) => {
 
 
 
+// =================================================
+// === CAJA
+// =================================================
+
+// GET ALL CAJA
+export const fetchGetAllCaja = async () => {
+  try {
+    const response = await axios.get(API_ENDPOINTS.getAllCaja);
+    console.log("Respuesta de fetchGetAllCaja:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener todas las cajas:", error);
+    throw error;
+  }
+};
+
+// GET CAJA (por id)
+export const fetchGetCaja = async (id: number) => {
+  try {
+    const response = await axios.get(API_ENDPOINTS.getCaja, {
+      params: { id },
+    });
+    console.log("Respuesta de fetchGetCaja:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error al obtener la caja:", error);
+    throw error;
+  }
+};
+
+// POST CAJA (crear)
+export const fetchPostCaja = async (
+  idf_producto: number,
+  idf_empleado: number,
+) => {
+  try {
+    const response = await axios.post(
+      API_ENDPOINTS.crearCaja,
+      { idf_producto, idf_empleado },
+      {
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("Respuesta de fetchPostCaja:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error al crear caja:", error);
+    throw error;
+  }
+};
+
+// UPDATE CAJA
+export const fetchUpdateCaja = async (
+  id: number,
+  idf_producto: number,
+  idf_empleado: number,
+ 
+) => {
+  try {
+    const response = await axios.post(
+      API_ENDPOINTS.updateCaja,
+      { id, idf_producto, idf_empleado },
+      {
+        headers: {
+          accept: "application/json",
+          "Content-Type": "application/json",
+        },
+      }
+    );
+
+    console.log("Respuesta de fetchUpdateCaja:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error al actualizar caja:", error);
+    throw error;
+  }
+};
+
+// DELETE CAJA
+export const fetchDeleteCaja = async (id: number) => {
+  try {
+    const response = await axios.delete(API_ENDPOINTS.deleteCaja, {
+      params: { id },
+    });
+    console.log("Respuesta de fetchDeleteCaja:", response.data);
+    return response.data;
+  } catch (error) {
+    console.error("Error al eliminar caja:", error);
+    throw error;
+  }
+};
