@@ -39,6 +39,7 @@ export function ProductNewModal({ onSuccess }: ProductNewModalProps) {
         formData.nombre,
         formData.activo ? 1 : 0,
       );
+
       if (response.IsSuccess) {
         setOpen(false);
         setFormData({ nombre: "", precio: "", activo: true });
@@ -69,7 +70,7 @@ export function ProductNewModal({ onSuccess }: ProductNewModalProps) {
               New Product
             </DialogTitle>
             <DialogDescription className="text-neutral-500 dark:text-neutral-400">
-              Enter the details for your new product ebook.
+              Enter the details for your new product.
             </DialogDescription>
           </DialogHeader>
           <div className="grid gap-4 py-4">

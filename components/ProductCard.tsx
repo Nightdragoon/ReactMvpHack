@@ -15,11 +15,14 @@ export interface Product {
   stock?: number;
 }
 
+import { InventoryEditModal } from "./InventoryEditModal";
+
 interface ProductCardProps {
   product: Product;
+  onUpdate?: () => void;
 }
 
-export function ProductCard({ product }: ProductCardProps) {
+export function ProductCard({ product, onUpdate }: ProductCardProps) {
   const isPublished = product.activo === 1;
 
   return (
@@ -68,15 +71,20 @@ export function ProductCard({ product }: ProductCardProps) {
           <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-1 font-medium">
             Inventario
           </p>
-          <p
-            className={`font-semibold ${
-              (product.stock ?? 0) > 0
-                ? "text-emerald-600 dark:text-emerald-400"
-                : "text-red-500"
-            }`}
-          >
-            {product.stock ?? 0}
-          </p>
+          <div className="flex items-center justify-center">
+            <span
+              className={`font-semibold ${
+                (product.stock ?? 0) > 0
+                  ? "text-emerald-600 dark:text-emerald-400"
+                  : "text-red-500"
+              }`}
+            >
+              {product.stock ?? 0}
+            </span>
+            {onUpdate && (
+              <InventoryEditModal product={product} onSuccess={onUpdate} />
+            )}
+          </div>
         </div>
         <div className="text-right">
           <p className="text-xs text-neutral-500 dark:text-neutral-400 mb-1 font-medium">
