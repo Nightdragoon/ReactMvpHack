@@ -47,3 +47,4 @@ export const API_ENDPOINTS = {
     getBaudrate: `${API_URL}/Obtencion_ganancias_burnrate`,
 
 };
+

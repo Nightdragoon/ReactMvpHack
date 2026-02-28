@@ -4,19 +4,19 @@
 import axios from "axios";
 import { API_ENDPOINTS } from "./endpoints";
 
-export const fetcTest = async () => {
-    try {
-        const response = await axios.get(
-            API_ENDPOINTS.getAllProductos,
-            { params: { solo_activos: false } }
-        );
-        console.log("Respuesta de fetcTest:", response.data);
-        return response.data;
-    } catch (error) {
-        console.error("Error al obtener productos:", error);
-        throw error;
-    }
-};
+// export const fetcTest = async () => {
+//     try {
+//         const response = await axios.get(
+//             API_ENDPOINTS.getAllProductos,
+//             { params: { solo_activos: false } }
+//         );
+//         console.log("Respuesta de fetcTest:", response.data);
+//         return response.data;
+//     } catch (error) {
+//         console.error("Error al obtener productos:", error);
+//         throw error;
+//     }
+// };
 
 // endpoints para productos
 export const fetchGetAllProductos = async (solo_activos: boolean = false) => {
@@ -58,8 +58,8 @@ export const fetchPostProducto = async (precio: number, nombre: string, activo: 
     }
 };
 
-export const fetchUpdateProducto = async (id: number , precio: number, nombre: string, activo: number) =>{
-     try {
+export const fetchUpdateProducto = async (id: number, precio: number, nombre: string, activo: number) => {
+    try {
         const response = await axios.post(
             API_ENDPOINTS.updateProducto,
             {
@@ -88,11 +88,11 @@ export const fetchDeleteProducto = async (id: number) => {
     try {
         const response = await axios.delete(
             API_ENDPOINTS.deleteProducto,
-            {params: {id}} , 
+            { params: { id } },
         );
         console.log("Respuesta de fetchDeleteProducto:", response.data);
         return response.data;
-    }catch (error) {
+    } catch (error) {
         console.error("Error al eliminar producto:", error);
         throw error;
     }
@@ -109,7 +109,7 @@ export const fetchGetAllInventarios = async () => {
     } catch (error) {
         console.error("Error al obtener inventarios:", error);
         throw error;
-    }   
+    }
 };
 
 export const fetchGetInventario = async (id_producto: number) => {
@@ -128,51 +128,51 @@ export const fetchGetInventario = async (id_producto: number) => {
 }
 
 export const fetchPostInventario = async (id_producto: number, cantidad: number) => {
-        let url = API_ENDPOINTS.crearInventario
-   try{
-         url = url.replace("{id_producto}", id_producto.toString())
+    let url = API_ENDPOINTS.crearInventario
+    try {
+        url = url.replace("{id_producto}", id_producto.toString())
         const response = await axios.post(
-            url , 
+            url,
             {
                 cantidad
             },
         )
         console.log("Respuesta de fetchPostInventario:", response.data);
         return response.data;
-    }catch (error) {
+    } catch (error) {
         console.error("Error al crear inventario:", error);
         throw error;
     }
 }
 
 export const fetchUpdateInventario = async (id_producto: number, cantidad: number) => {
-        let url = API_ENDPOINTS.updateInventario
-   try{
-         url = url.replace("{id_producto}", id_producto.toString())
+    let url = API_ENDPOINTS.updateInventario
+    try {
+        url = url.replace("{id_producto}", id_producto.toString())
         const response = await axios.post(
-            url , 
+            url,
             {
                 cantidad
             },
         )
         console.log("Respuesta de fetchUpdateInventario:", response.data);
         return response.data;
-    }catch (error) {
+    } catch (error) {
         console.error("Error al actualizar inventario:", error);
         throw error;
     }
 }
 
 export const fetchDeleteInventario = async (id_producto: number) => {
-        let url = API_ENDPOINTS.deleteInventario
-    try{   
-            url = url.replace("{id_producto}", id_producto.toString())
+    let url = API_ENDPOINTS.deleteInventario
+    try {
+        url = url.replace("{id_producto}", id_producto.toString())
         const response = await axios.delete(
             url
         )
         console.log("Respuesta de fetchDeleteInventario:", response.data);
         return response.data;
-    }catch (error) {
+    } catch (error) {
         console.error("Error al eliminar inventario:", error);
         throw error;
     }

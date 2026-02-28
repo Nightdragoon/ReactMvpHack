@@ -40,3 +40,13 @@ export interface Producto {
     precio: number;
     activo: number;
 }
+
+export interface InventoryItem {
+    id: string;
+    producto_id: number;
+    sku: string;
+    stock: number;
+    status: "In Stock" | "Low Stock" | "Out of Stock";
+    lastReorder: string;
+    productName?: string;
+}
