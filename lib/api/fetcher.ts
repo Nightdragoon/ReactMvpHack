@@ -178,8 +178,42 @@ export const fetchDeleteInventario = async (id_producto: number) => {
     }
 }
 
+//endpoints empleados 
 
+export const fetchGetAllEmpleados = async () => {
+    try {
+        const response = await axios.get(
+            API_ENDPOINTS.getAllEmpleados,
+        );
+        console.log("Respuesta de fetchGetAllEmpleados:", response.data);
+        return response.data;
+        
+    } catch (error) {
+        console.error("Error al obtener empleados:", error);
+        throw error;
+    }
+}
 
-
-
+export const fetchCrearEmpleados = async (nombre_completo: string, login: string , contrasena: string , Rol: string) => {
+    try{
+        const response = await axios.post(
+            API_ENDPOINTS.crearEmpleados,
+            {
+                nombre_completo,
+                login,
+                contrasena,
+                Rol
+            },
+            {headers: {
+                'accept': 'application/json',
+                    'Content-Type': 'application/json'
+             }}
+        )
+        console.log("Respuesta de fetchCrearEmpleados:", response.data);
+        return response.data;
+    }catch (error){
+        console.error("Error al crear empleado:", error);
+        throw error;
+    }
+}
 
