@@ -44,7 +44,7 @@ export function Header() {
             |
           </span>
           <span className="font-medium tracking-tight whitespace-nowrap hidden lg:inline-block uppercase text-sm text-neutral-600 dark:text-neutral-400">
-            Dashboard Operativo Para Startups
+            Dashboard Operativo Para Agritech
           </span>
         </div>
 

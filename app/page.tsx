@@ -53,7 +53,7 @@ export default function LandingPage() {
             </div>
 
             <h1 className="mx-auto max-w-4xl text-5xl font-bold tracking-tight text-transparent bg-clip-text bg-gradient-to-b from-neutral-900 to-neutral-500 dark:from-neutral-50 dark:to-neutral-400 sm:text-7xl lg:text-8xl pb-4 transition-colors">
-              Operational Intelligence for Startups.
+              Operational Intelligence for Agritech.
             </h1>
 
             <p className="mx-auto mt-6 max-w-2xl text-lg text-neutral-600 dark:text-neutral-400 sm:text-xl leading-relaxed transition-colors">
@@ -158,7 +158,7 @@ export default function LandingPage() {
 
           <div className="relative mx-auto max-w-4xl px-6 text-center">
             <h2 className="text-3xl font-bold tracking-tight text-neutral-900 dark:text-neutral-50 sm:text-5xl mb-6 transition-colors">
-              Ready to take control of your startup?
+              Ready to take control of your agritech business?
             </h2>
             <p className="text-lg text-neutral-600 dark:text-neutral-400 mb-10 max-w-2xl mx-auto transition-colors">
               Join the growing number of founders using SAI to extend their
