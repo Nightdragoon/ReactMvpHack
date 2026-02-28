@@ -33,3 +33,10 @@ export interface SmartAlertsProps {
 export interface SimulatorProps {
     data: DashboardMetrics;
 }
+
+export interface Producto {
+    id: number;
+    nombre: string;
+    precio: number;
+    activo: number;
+}

@@ -1,4 +1,3 @@
-import { get } from "http";
 
 const isBrowser = typeof window !== "undefined";
 const API_URL = isBrowser ? "/api-proxy" : process.env.NEXT_PUBLIC_URL_SERVER;
@@ -26,7 +25,7 @@ export const API_ENDPOINTS = {
     crearInventario: `${API_URL}/productos/{id_producto}/inventario`,
     updateInventario: `${API_URL}/productos/{id_producto}/inventario`,
     deleteInventario: `${API_URL}/productos/{id_producto}/inventario`,
-    
+
 
     // !Employees
 
@@ -44,10 +43,7 @@ export const API_ENDPOINTS = {
 
     // !Login
     login: `${API_URL}/Login`,
-     //Baudrate
+    //Baudrate
     getBaudrate: `${API_URL}/Obtencion_ganancias_burnrate`,
 
-};
-
-    // !Dashboard
 };
