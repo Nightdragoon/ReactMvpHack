@@ -14,23 +14,14 @@ export const API_ENDPOINTS = {
     // !Products
     getAllProductos: `${API_URL}/GetAllProductos`,
     // getProducts: `${API_URL}/api/products`,
-    // getProducts: `${API_URL}/api/products`,
-    // getProducts: `${API_URL}/api/products`,
 
     // !Inventory
     //    postInventory: `${API_URL}/api/inventory`,
-    //    postInventory: `${API_URL}/api/inventory`,
-    //    postInventory: `${API_URL}/api/inventory`,
-    //    postInventory: `${API_URL}/api/inventory`,
-
 
     // !Employees
-
-    // employees: `${API_URL}/api/employees`,
-    // employees: `${API_URL}/api/employees`,
-    // employees: `${API_URL}/api/employees`,
     // employees: `${API_URL}/api/employees`,
 
     // !Cashbox 
-};
 
+    // !Dashboard
+};
