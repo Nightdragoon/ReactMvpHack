@@ -1,7 +1,7 @@
 import { Badge } from "@/components/ui/badge";
 import { Button } from "./ui/button";
 import { ShoppingCart } from "lucide-react"
-import { fetchPostCaja } from "@/lib/api/fetcher";
+import { fetchPostCaja , fetchPostInventario } from "@/lib/api/fetcher";
 
 import {
   Card,
@@ -35,6 +35,14 @@ export function ProductCard({ product, onUpdate }: ProductCardProps) {
       alert("Producto comprado exitosamente");
       if (onUpdate) onUpdate(); // Refresh product data after purchase
      } else {
+      if (response.message === "404: Inventario no encontrado para este producto") {
+        const responseInventario = await fetchPostInventario(product.id, 1); // Create inventory with 0 stock
+        if (responseInventario.IsSuccess) {
+          alert("Inventario creado exitosamente. Intenta comprar de nuevo.");
+        } else {
+          alert(responseInventario.message || "Failed to create inventory");
+        }
+      }
       alert(response.message || "Failed to purchase product");
      }
   } 
