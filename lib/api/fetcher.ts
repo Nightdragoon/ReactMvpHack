@@ -149,7 +149,7 @@ export const fetchUpdateInventario = async (id_producto: number, cantidad: numbe
     let url = API_ENDPOINTS.updateInventario
     try {
         url = url.replace("{id_producto}", id_producto.toString())
-        const response = await axios.post(
+        const response = await axios.put(
             url,
             {
                 cantidad

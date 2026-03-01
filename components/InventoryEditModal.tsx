@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Edit2, Loader2 } from "lucide-react";
-import { fetchPostInventario } from "@/lib/api/fetcher";
+import { fetchUpdateInventario } from "@/lib/api/fetcher";
 
 interface Product {
   id: number;
@@ -43,9 +43,9 @@ export function InventoryEditModal({
     try {
       const cantidadValue = Number(cantidad) || 0;
       // We use post to update or create the inventory. Since the user said
-      // "con el id de product y id_product de inventario" and we know fetchPostInventario
+      // "con el id de product y id_product de inventario" and we know fetchUpdateInventario
       // takes id_producto and cantidad, we will use that.
-      const response = await fetchPostInventario(product.id, cantidadValue);
+      const response = await fetchUpdateInventario(product.id, cantidadValue);
 
       if (response.IsSuccess || response.message) {
         setOpen(false);

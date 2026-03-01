@@ -6,6 +6,7 @@ import { LayoutGrid, List as ListIcon, RefreshCcw } from "lucide-react";
 import {
   fetchGetAllProductos,
   fetchGetAllInventarios,
+  
 } from "@/lib/api/fetcher";
 import { ProductCard, Product } from "@/components/ProductCard";
 import { ProductNewModal } from "@/components/ProductNewModal";
