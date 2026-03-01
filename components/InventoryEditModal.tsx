@@ -14,7 +14,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Edit2, Loader2 } from "lucide-react";
-import { fetchUpdateInventario } from "@/lib/api/fetcher";
+import { fetchUpdateInventario , fetchPostInventario } from "@/lib/api/fetcher";
 import { AlertDialog } from "@/components/ui/alert-dialog";
 
 interface Product {
@@ -52,6 +52,14 @@ export function InventoryEditModal({
         setOpen(false);
         onSuccess();
       } else {
+        if (response.message === "404: Inventario no encontrado para este producto") {
+        const responseInventario = await fetchPostInventario(product.id, 1); // Create inventory with 0 stock
+        if (responseInventario.IsSuccess) {
+          alert("Inventario creado exitosamente. Intenta comprar de nuevo.");
+        } else {
+          alert(responseInventario.message || "Failed to create inventory");
+        }
+      }
         alert(response.message || "Failed to update inventory");
       }
     } catch (error) {
