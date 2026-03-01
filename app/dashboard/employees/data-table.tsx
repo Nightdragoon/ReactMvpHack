@@ -78,10 +78,10 @@ export function DataTable<TData, TValue>({
         <div className="relative flex-1 max-w-sm">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-neutral-500 dark:text-neutral-400" />
           <Input
-            placeholder="Filter by ID..."
-            value={(table.getColumn("id")?.getFilterValue() as string) ?? ""}
+            placeholder="Filter by name..."
+            value={(table.getColumn("nombre_completo")?.getFilterValue() as string) ?? ""}
             onChange={(event) =>
-              table.getColumn("id")?.setFilterValue(event.target.value)
+              table.getColumn("nombre_completo")?.setFilterValue(event.target.value)
             }
             className="pl-9 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm border-neutral-200 dark:border-neutral-800 rounded-xl shadow-sm focus-visible:ring-emerald-500"
           />

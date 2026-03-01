@@ -46,11 +46,7 @@ export const columns: ColumnDef<EmployeeTablaItem>[] = [
     enableSorting: false,
     enableHiding: false,
   },
-  {
-    accessorKey: "id",
-    header: "ID",
-    cell: ({ row }) => <div className="font-medium">{row.getValue("id")}</div>,
-  },
+ 
   {
     accessorKey: "nombre_completo",
     header: ({ column }) => (
