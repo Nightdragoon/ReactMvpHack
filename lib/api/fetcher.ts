@@ -354,3 +354,15 @@ export const fetchDeleteCaja = async (id: number) => {
     throw error;
   }
 };
+
+// Obtener runway 
+export const fetchGetRunway = async () => {
+    try {
+        const response = await axios.get(API_ENDPOINTS.getBaudrate)
+        console.log("Respuesta de fetchGetRunway:", response.data);
+        return response.data;
+    } catch (error) {
+        console.error("Error al obtener runway:", error);
+        throw error;
+    }
+}

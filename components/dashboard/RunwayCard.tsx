@@ -1,18 +1,38 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Copy } from "lucide-react";
 import { RunwayCardProps } from "@/types";
+import { useEffect , useState } from "react";
+import { fetchGetRunway } from "@/lib/api/fetcher";
+
+
 
 export function RunwayCard({
   cashAvailable,
   monthlyBurnRate,
 }: RunwayCardProps) {
+
+  const [runway, setRunway] = useState(0);
+  const [ganancias , setGanancias] = useState(0);
+  const [perdidas , setPerdidas] = useState(0);
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const data = await fetchGetRunway();
+        setRunway(data.runway);
+        setGanancias(data.ganancias_mes_totales);
+        setPerdidas(data.perdida_mes_totales);
+      } catch (error) {
+        console.error("Error fetching runway data:", error);
+      }    };
+    fetchData();
+  }, []);
   // Si no hay burnRate real (0), no podemos calcular el runway matemáticamente.
   // Protegemos contra división por cero.
   const isDataEmpty = cashAvailable === 0 && monthlyBurnRate === 0;
 
   const runwayMonths = isDataEmpty ? 0 : cashAvailable / (monthlyBurnRate || 1);
   const runwayFormatted = isDataEmpty ? "-" : runwayMonths.toFixed(1);
-  const runwayPercentage = isDataEmpty
+  const runwayPercentage = (runway / 6) * 100
     ? 0
     : Math.min(100, Math.max(0, (runwayMonths / 6) * 100)); // Cap at 6 months for UI bar
 
@@ -46,13 +66,13 @@ export function RunwayCard({
             <p className="flex justify-between">
               <span>Cash Disponible:</span>
               <span className="font-medium text-neutral-900 dark:text-neutral-50">
-                {(cashAvailable / 1000).toFixed(0)}k MXN
+                {ganancias}k MXN
               </span>
             </p>
             <p className="flex justify-between">
               <span>Burn Rate Mensual:</span>
               <span className="font-medium text-neutral-900 dark:text-neutral-50">
-                {(monthlyBurnRate / 1000).toFixed(0)}k MXN
+                {perdidas}k MXN
               </span>
             </p>
           </div>
@@ -67,7 +87,7 @@ export function RunwayCard({
                 </div>
                 <div className="text-right">
                   <span className="text-xs font-semibold inline-block text-emerald-600 dark:text-emerald-400">
-                    6 Meses
+                    {runway} Meses
                   </span>
                 </div>
               </div>
