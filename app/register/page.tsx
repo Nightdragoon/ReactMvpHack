@@ -5,11 +5,11 @@ import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { Zap, ArrowRight, Github, Loader2 } from "lucide-react";
-import axios from "axios";
 
-export default function LoginPage() {
+export default function RegisterPage() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [formError, setFormError] = useState("");
@@ -19,59 +19,12 @@ export default function LoginPage() {
     setIsLoading(true);
     setFormError("");
 
-    try {
-      /*
-      // --- LÓGICA DE FETCH ORIGINAL (Ignorada temporalmente) ---
-      const response = await axios.post("http://127.0.0.1:8000/login", {
-        login: email,
-        contrasena: password,
-      });
+    // Simulate network delay
+    await new Promise((resolve) => setTimeout(resolve, 800));
 
-      console.log("Response:", response.data);
-
-      if (response.data?.IsSuccess) {
-        // Save user data to localStorage
-        if (response.data.data) {
-          localStorage.setItem("userData", JSON.stringify(response.data.data));
-        }
-
-        // Go to dashboard
-        router.push("/dashboard");
-      } else {
-        console.error("Login failed:", response.data?.message);
-      }
-      // ---------------------------------------------------------
-      */
-
-      // Simula un retardo de red
-      await new Promise((resolve) => setTimeout(resolve, 800));
-
-      // Simula un inicio de sesión exitoso y redirige al dashboard de todas formas
-      router.push("/dashboard");
-    } catch (error) {
-      console.error("Error during login:", error);
-      /*
-      // --- LÓGICA DE ERRORES ORIGINAL (Ignorada temporalmente) ---
-      if (axios.isAxiosError(error)) {
-        if (error.response?.status === 422) {
-          setFormError(
-            "Faltan campos o el formato es incorrecto. Por favor, verifica tu correo y contraseña.",
-          );
-        } else if (error.response?.status === 401) {
-          setFormError("Credenciales incorrectas.");
-        } else {
-          setFormError(
-            "Ocurrió un error inesperado al comunicarse con el servidor.",
-          );
-        }
-      } else {
-        setFormError("Error de conexión. Inténtalo más tarde.");
-      }
-      // -------------------------------------------------------------
-      */
-    } finally {
-      setIsLoading(false);
-    }
+    // For now, simulate successful registration and redirection
+    setIsLoading(false);
+    router.push("/dashboard");
   };
 
   return (
@@ -99,21 +52,39 @@ export default function LoginPage() {
           </Link>
         </div>
 
-        {/* Login Card */}
+        {/* Register Card */}
         <div className="bg-white/60 dark:bg-neutral-900/60 backdrop-blur-xl border border-neutral-200 dark:border-neutral-800 rounded-3xl p-8 shadow-2xl relative overflow-hidden transition-colors">
           {/* Subtle gradient border effect */}
           <div className="absolute inset-0 border border-neutral-900/5 dark:border-white/5 rounded-3xl pointer-events-none transition-colors"></div>
 
           <div className="text-center mb-8">
             <h1 className="text-2xl font-bold text-neutral-900 dark:text-neutral-50 tracking-tight transition-colors">
-              Welcome back
+              Create an account
             </h1>
             <p className="text-md text-neutral-500 dark:text-neutral-400 mt-2 transition-colors">
-              Log in to your account to continue
+              Enter your details to get started
             </p>
           </div>
 
           <form onSubmit={handleSubmit} className="space-y-4">
+            <div className="space-y-1">
+              <label
+                htmlFor="name"
+                className="text-xs font-medium text-neutral-500 dark:text-neutral-400 px-1 transition-colors"
+              >
+                Full Name
+              </label>
+              <input
+                id="name"
+                type="text"
+                placeholder="John Doe"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+                required
+                className="w-full h-12 bg-white/50 dark:bg-neutral-950/50 border border-neutral-200 dark:border-neutral-800 rounded-xl px-4 text-neutral-900 dark:text-neutral-50 placeholder:text-neutral-400 dark:placeholder:text-neutral-600 focus:outline-none focus:ring-2 focus:ring-emerald-500/50 focus:border-emerald-500 transition-all ring-offset-white dark:ring-offset-neutral-950"
+              />
+            </div>
+
             <div className="space-y-1">
               <label
                 htmlFor="email"
@@ -123,7 +94,7 @@ export default function LoginPage() {
               </label>
               <input
                 id="email"
-                type="text"
+                type="email"
                 placeholder="name@company.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -133,20 +104,12 @@ export default function LoginPage() {
             </div>
 
             <div className="space-y-1">
-              <div className="flex items-center justify-between px-1">
-                <label
-                  htmlFor="password"
-                  className="text-xs font-medium text-neutral-500 dark:text-neutral-400 transition-colors"
-                >
-                  Password
-                </label>
-                <Link
-                  href="#"
-                  className="text-xs font-medium text-emerald-600 dark:text-emerald-500 hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors"
-                >
-                  Forgot password?
-                </Link>
-              </div>
+              <label
+                htmlFor="password"
+                className="text-xs font-medium text-neutral-500 dark:text-neutral-400 px-1 transition-colors"
+              >
+                Password
+              </label>
               <input
                 id="password"
                 type="password"
@@ -166,9 +129,11 @@ export default function LoginPage() {
 
             <button
               type="submit"
-              disabled={isLoading || !email.trim() || !password.trim()}
+              disabled={
+                isLoading || !name.trim() || !email.trim() || !password.trim()
+              }
               className={`w-full h-12 bg-emerald-500 text-white dark:text-neutral-950 font-medium rounded-xl mt-6 transition-all focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:ring-offset-2 focus:ring-offset-white dark:focus:ring-offset-neutral-900 disabled:opacity-70 disabled:cursor-not-allowed flex items-center justify-center gap-2 ${
-                isLoading || !email.trim() || !password.trim()
+                isLoading || !name.trim() || !email.trim() || !password.trim()
                   ? ""
                   : "hover:bg-emerald-400 group"
               }`}
@@ -177,7 +142,7 @@ export default function LoginPage() {
                 <Loader2 className="h-5 w-5 animate-spin text-white dark:text-neutral-950" />
               ) : (
                 <>
-                  Sign In
+                  Create account
                   <ArrowRight className="h-4 w-4 transition-transform group-hover:translate-x-1" />
                 </>
               )}
@@ -221,12 +186,12 @@ export default function LoginPage() {
         </div>
 
         <p className="text-center text-xs text-neutral-500 dark:text-neutral-500 mt-8 transition-colors">
-          Don&apos;t have an account?{" "}
+          Already have an account?{" "}
           <Link
             href="/login"
             className="text-emerald-600 dark:text-emerald-500 hover:text-emerald-500 dark:hover:text-emerald-400 font-medium transition-colors"
           >
-            Request early access
+            Sign in here
           </Link>
         </p>
       </div>
