@@ -53,7 +53,7 @@ export function InventoryEditModal({
         onSuccess();
       } else {
         if (response.message === "404: Inventario no encontrado para este producto") {
-        const responseInventario = await fetchPostInventario(product.id, 1); // Create inventory with 0 stock
+        const responseInventario = await fetchPostInventario(product.id, cantidadValue); // Create inventory with 0 stock
         if (responseInventario.IsSuccess) {
           alert("Inventario creado exitosamente. Intenta comprar de nuevo.");
           setOpen(false);
