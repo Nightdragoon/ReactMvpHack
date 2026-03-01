@@ -82,7 +82,7 @@ export function RiskScore({ data }: RiskScoreProps) {
               Margen
             </span>
             <span className="text-lg font-bold text-neutral-900 dark:text-neutral-50">
-              {isDataEmpty ? "-" : `${data.grossMargin}%`}
+              {isDataEmpty ? "-" : `${Number(data.grossMargin).toFixed(2)}%`}
             </span>
           </div>
           <div className="flex flex-col items-center justify-center p-2 rounded-xl bg-neutral-100/50 dark:bg-neutral-800/50 text-center gap-1">
