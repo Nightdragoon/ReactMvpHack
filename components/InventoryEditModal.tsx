@@ -15,6 +15,7 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Edit2, Loader2 } from "lucide-react";
 import { fetchUpdateInventario } from "@/lib/api/fetcher";
+import { AlertDialog } from "@/components/ui/alert-dialog";
 
 interface Product {
   id: number;
@@ -47,7 +48,7 @@ export function InventoryEditModal({
       // takes id_producto and cantidad, we will use that.
       const response = await fetchUpdateInventario(product.id, cantidadValue);
 
-      if (response.IsSuccess || response.message) {
+      if (response.IsSuccess) {
         setOpen(false);
         onSuccess();
       } else {
@@ -55,6 +56,7 @@ export function InventoryEditModal({
       }
     } catch (error) {
       console.error("Error updating inventory:", error);
+
       alert("An error occurred while updating inventory");
     } finally {
       setIsLoading(false);

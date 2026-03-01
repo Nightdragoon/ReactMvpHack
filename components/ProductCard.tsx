@@ -1,4 +1,8 @@
 import { Badge } from "@/components/ui/badge";
+import { Button } from "./ui/button";
+import { ShoppingCart } from "lucide-react"
+import { fetchPostCaja } from "@/lib/api/fetcher";
+
 import {
   Card,
   CardContent,
@@ -25,15 +29,23 @@ interface ProductCardProps {
 export function ProductCard({ product, onUpdate }: ProductCardProps) {
   const isPublished = product.activo === 1;
 
+  const comprarProducto = async () => {
+     const response = await fetchPostCaja(product.id, 7); // Assuming quantity is 1 for purchase
+     if (response.IsSuccess) {
+      alert("Producto comprado exitosamente");
+      if (onUpdate) onUpdate(); // Refresh product data after purchase
+     } else {
+      alert(response.message || "Failed to purchase product");
+     }
+  } 
+
   return (
     <Card className="overflow-hidden shadow-sm rounded-2xl border border-neutral-200 dark:border-neutral-800 bg-white/50 dark:bg-neutral-900/50 backdrop-blur-sm transition-all hover:shadow-md flex flex-col justify-between group relative w-full h-full min-h-[300px]">
       <CardHeader className="p-0 bg-neutral-100/50 dark:bg-neutral-800/50 border-b border-neutral-100 dark:border-neutral-800/50 min-h-[160px]">
         <div className="relative w-full aspect-4/3 p-4 flex items-center justify-center">
-          <div className="w-20 h-20 rounded-xl bg-emerald-100 dark:bg-emerald-900/30 flex items-center justify-center">
-            <span className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
-              {product.nombre.charAt(0).toUpperCase()}
-            </span>
-          </div>
+         <Button variant="ghost" className="h-24 w-24 bg-emerald-100 dark:bg-emerald-900/30 " onClick={comprarProducto}>
+          <ShoppingCart size={80} className="text-white" />
+        </Button>
         </div>
       </CardHeader>
 
