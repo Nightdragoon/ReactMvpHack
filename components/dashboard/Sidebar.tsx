@@ -14,7 +14,7 @@ import {
   Settings,
   ChevronLeft,
   UserCircle,
-  LogOut,
+  Sparkles,
 } from "lucide-react";
 
 export function Sidebar() {
@@ -41,8 +41,12 @@ export function Sidebar() {
       count: "3 elementos",
       routes: [
         { name: "Overview", href: "/dashboard", icon: LayoutDashboard },
-        { name: "Caja", href: "/dashboard/cashbox", icon: DollarSign },
-        { name: "Burn Rate", href: "/dashboard/burnrate", icon: Activity },
+        {
+          name: "Reporte Ventas",
+          href: "/dashboard/cashbox",
+          icon: DollarSign,
+        },
+        // { name: "Burn Rate", href: "/dashboard/burnrate", icon: Activity },
       ],
     },
     {
@@ -254,29 +258,23 @@ export function Sidebar() {
         </div>
       </div>
 
-      {/* Footer / User Profile */}
-      <div className="p-4 border-t border-neutral-200/50 dark:border-neutral-800/50 mt-auto shrink-0">
-        <Link
-          href="/dashboard/profile"
-          className="flex items-center justify-between p-2 rounded-xl hover:bg-neutral-200/80 dark:hover:bg-neutral-800/80 transition-colors group cursor-pointer"
-        >
-          <div className="flex items-center gap-3 overflow-hidden">
-            <div className="h-10 w-10 rounded-full bg-emerald-100 dark:bg-emerald-900/50 flex items-center justify-center border border-emerald-200 dark:border-emerald-800/50 shrink-0">
-              <UserCircle className="h-6 w-6 text-emerald-600 dark:text-emerald-400" />
-            </div>
-            <div className="flex flex-col overflow-hidden">
-              <span className="text-sm font-semibold text-neutral-900 dark:text-neutral-100 truncate">
-                Admin User
-              </span>
-              <span className="text-xs text-neutral-500 dark:text-neutral-400 truncate">
-                admin@copilot.com
-              </span>
-            </div>
+      {/* Footer / AI Report Button */}
+      <div className="p-4 border-t border-neutral-200/50 dark:border-neutral-800/50 mt-auto shrink-0 relative z-10 w-full">
+        <button className="w-full relative group overflow-hidden rounded-2xl p-[2px] shadow-lg shadow-emerald-500/20 transition-transform duration-300 hover:-translate-y-1 active:scale-[0.98]">
+          {/* Animated Gradient Border */}
+          <span className="absolute inset-0 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-500 rounded-2xl opacity-80 group-hover:opacity-100 blur-sm transition-opacity duration-500"></span>
+
+          {/* Inner Content Container */}
+          <div className="relative flex items-center justify-center gap-2 w-full bg-white dark:bg-neutral-950 px-4 py-4 rounded-[14px] shadow-inner transition-colors overflow-hidden">
+            {/* Shimmer Effect */}
+            <div className="absolute inset-0 translate-x-[-100%] bg-gradient-to-r from-transparent via-emerald-400/20 to-transparent group-hover:translate-x-[100%] transition-transform duration-1000 ease-in-out"></div>
+
+            <Sparkles className="h-5 w-5 text-emerald-600 dark:text-emerald-400 group-hover:scale-110 transition-transform duration-300" />
+            <span className="font-bold text-sm bg-gradient-to-r from-emerald-600 to-teal-600 dark:from-emerald-400 dark:to-teal-400 bg-clip-text text-transparent group-hover:brightness-110">
+              Generar reporte con IA
+            </span>
           </div>
-          <div className="opacity-0 group-hover:opacity-100 transition-opacity">
-            <LogOut className="h-4 w-4 text-red-500/80 hover:text-red-500 shrink-0" />
-          </div>
-        </Link>
+        </button>
       </div>
     </aside>
   );
