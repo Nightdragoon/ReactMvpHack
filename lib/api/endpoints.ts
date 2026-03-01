@@ -46,5 +46,8 @@ export const API_ENDPOINTS = {
     //Baudrate
     getBaudrate: `${API_URL}/Obtencion_ganancias_burnrate`,
 
+    //ia
+    getIA: `${API_URL}/generar-reporte-ia`,
+
 };
 

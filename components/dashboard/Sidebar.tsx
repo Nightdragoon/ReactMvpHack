@@ -4,6 +4,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import Image from "next/image";
+import { fetchGetIA } from "@/lib/api/fetcher";
 import {
   LayoutDashboard,
   ShoppingCart,
@@ -18,6 +19,27 @@ import {
 } from "lucide-react";
 
 export function Sidebar() {
+
+const handlerGenerarReporteIA = async () => {
+  try {
+    // 1. (Opcional) Aquí podrías poner un: setCargando(true)
+    console.log("Generando reporte, por favor espera...");
+
+    // 2. Llamamos a la función que ya tiene la lógica del Blob y la descarga
+    await fetchGetIA();
+
+    // 3. Si llega aquí es porque no hubo error en fetchGetIA
+    alert("✨ Reporte generado y descarga iniciada exitosamente");
+
+  } catch (error) {
+    // 4. Capturamos errores tanto de red como de la API
+    console.error("Error generating IA report:", error);
+    alert("No se pudo generar el reporte. Verifica tu conexión o la API Key.");
+  } finally {
+    // 5. (Opcional) setCargando(false)
+  }
+};
+
   const pathname = usePathname();
 
   // Estado para los menús colapsables
@@ -260,7 +282,7 @@ export function Sidebar() {
 
       {/* Footer / AI Report Button */}
       <div className="p-4 border-t border-neutral-200/50 dark:border-neutral-800/50 mt-auto shrink-0 relative z-10 w-full">
-        <button className="w-full relative group overflow-hidden rounded-2xl p-[2px] shadow-lg shadow-emerald-500/20 transition-transform duration-300 hover:-translate-y-1 active:scale-[0.98]">
+        <button className="w-full relative group overflow-hidden rounded-2xl p-[2px] shadow-lg shadow-emerald-500/20 transition-transform duration-300 hover:-translate-y-1 active:scale-[0.98]" onClick={handlerGenerarReporteIA}>
           {/* Animated Gradient Border */}
           <span className="absolute inset-0 bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-500 rounded-2xl opacity-80 group-hover:opacity-100 blur-sm transition-opacity duration-500"></span>
 

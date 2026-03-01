@@ -366,3 +366,42 @@ export const fetchGetRunway = async () => {
         throw error;
     }
 }
+
+///ia
+
+export const fetchGetIA = async () => {
+    try {
+        // 1. IMPORTANTE: Agregamos responseType: 'blob'
+        // Esto le dice a Axios que no trate la respuesta como JSON, sino como un archivo binario.
+        const response = await axios.get(API_ENDPOINTS.getIA, {
+            responseType: 'blob' 
+        });
+
+        // 2. Creamos un "Blob" (el objeto del archivo) a partir de los datos
+        const blob = new Blob([response.data], { type: 'text/plain' });
+
+        // 3. Creamos una URL temporal que apunta a ese archivo en la memoria del navegador
+        const url = window.URL.createObjectURL(blob);
+
+        // 4. Creamos un elemento <a> invisible para simular el click de descarga
+        const link = document.createElement('a');
+        link.href = url;
+        link.setAttribute('download', 'reporte_negocio_ia.txt'); // Nombre del archivo
+
+        // 5. Lo añadimos al DOM, hacemos click y lo quitamos
+        document.body.appendChild(link);
+        link.click();
+
+        // 6. Limpieza: eliminamos el link y liberamos la URL de la memoria
+        if (link.parentNode) {
+            link.parentNode.removeChild(link);
+        }
+        window.URL.revokeObjectURL(url);
+
+        return "Descarga iniciada";
+
+    } catch (error) {
+        console.error("Error al obtener y descargar IA:", error);
+        throw error;
+    }   
+}
