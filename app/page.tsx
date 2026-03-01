@@ -209,10 +209,10 @@ export default function LandingPage() {
           </p>
           <div className="flex gap-4 text-sm text-neutral-500 transition-colors">
             <a
-              href="#"
+              href="https://nightdragoon.github.io/web_sai/"
               className="hover:text-neutral-900 dark:hover:text-neutral-300 transition-colors"
             >
-              Twitter
+              pagina oficial
             </a>
             <a
               href="#"
