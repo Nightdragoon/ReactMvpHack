@@ -56,11 +56,15 @@ export function InventoryEditModal({
         const responseInventario = await fetchPostInventario(product.id, 1); // Create inventory with 0 stock
         if (responseInventario.IsSuccess) {
           alert("Inventario creado exitosamente. Intenta comprar de nuevo.");
+          setOpen(false);
+          onSuccess(); // Refresh product data after creating inventory
         } else {
           alert(responseInventario.message || "Failed to create inventory");
         }
+      }else{
+                  alert(response.message || "Failed to update inventory");
+
       }
-        alert(response.message || "Failed to update inventory");
       }
     } catch (error) {
       console.error("Error updating inventory:", error);
