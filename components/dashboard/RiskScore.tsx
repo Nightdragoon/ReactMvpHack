@@ -93,7 +93,7 @@ export function RiskScore({ data }: RiskScoreProps) {
               Crecimiento
             </span>
             <span className="text-lg font-bold text-neutral-900 dark:text-neutral-50">
-              {isDataEmpty ? "-" : `${data.incomeGrowth - data.expenseGrowth}%`}
+              {isDataEmpty ? "-" : `${Number(data.incomeGrowth - data.expenseGrowth).toFixed(2)}%`}
             </span>
           </div>
         </div>
