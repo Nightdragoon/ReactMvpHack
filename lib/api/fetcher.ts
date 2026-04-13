@@ -405,3 +405,32 @@ export const fetchGetIA = async () => {
         throw error;
     }   
 }
+
+export const fetchHablarIaElevenLabs = async (text: string): Promise<void> => {
+    try {
+        const response = await axios.get(
+            API_ENDPOINTS.hablarIaElevenLabs,
+            {
+                params: { text },
+                responseType: 'blob'
+            }
+        );
+
+        // 1. Convertís el blob a una URL temporal
+        const audioBlob = new Blob([response.data], { type: 'audio/mpeg' });
+        const audioUrl = URL.createObjectURL(audioBlob);
+
+        // 2. Creás el elemento de audio y lo reproducís
+        const audio = new Audio(audioUrl);
+        await audio.play();
+
+        // 3. Limpiás la URL temporal cuando termina
+        audio.onended = () => {
+            URL.revokeObjectURL(audioUrl);
+        };
+
+    } catch (error) {
+        console.error("Error al hablar con IA ElevenLabs:", error);
+        throw error;
+    }
+}

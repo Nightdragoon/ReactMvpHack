@@ -78,6 +78,7 @@ const handlerGenerarReporteIA = async () => {
       routes: [
         { name: "Productos", href: "/dashboard/products", icon: ShoppingCart },
         { name: "Empleados", href: "/dashboard/employees", icon: Users },
+        {name : "ia operativa", href: "/dashboard/iaoperativa", icon: Sparkles},
       ],
     },
   ];

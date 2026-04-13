@@ -48,6 +48,7 @@ export const API_ENDPOINTS = {
 
     //ia
     getIA: `${API_URL}/generar-reporte-ia`,
+    hablarIaElevenLabs: `${API_URL}/hablar_con_ia_elevenlabs`,
 
 };
 
